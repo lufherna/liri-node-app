@@ -95,23 +95,25 @@ var thirdCommand = inputString[3];
 						if (err) {
 							    return console.log('Error occurred: ' + err);
 							  }
-						//loops through the data array
-						for (var i = 0; i < data.tracks.items.length; i++) {
 
-							var items = data.tracks.items[i];
+							  console.log(data.tracks.items.album.artists[0])
+						//loops through the data array
+						//for (var i = 0; i < data.tracks.items.length; i++) {
+
+							//var items = data.tracks.items;
 
 							//artists name
-							console.log(items.album.artists[i].name);
+							//console.log(items.album.artists.name);
 
 							//song name
-							console.log(items.album.name);
+							//console.log(items.album.name);
 
 							//link
-							console.log(items.album.uri)
+							//console.log(items.album.uri)
 
 							//album name
-							console.log(items.name)
-							}
+							//console.log(items.name)
+							//}
 						});
 					}
 
