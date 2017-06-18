@@ -1,24 +1,30 @@
+//requires specific files
+//dependancies below
+
 var keys = require('./keys.js');
 var Twitter = require('twitter')
 var request = require('request');
 var Spotify = require('node-spotify-api');
 var fs = require('fs');
 
+//saves keys from keys.js 
 var T = new Twitter(
 	keys
 );
 
+//saves keys for Spotify
 var spotify = new Spotify({
 	id: '6f4efcaa0fe8401e9c74d0e85d58605d',
 	secret: '814916766bfe4e14b4309f6793bb4b11'
 });
 
+//saves user input in variable
 var inputString = process.argv;
 
 var commands = inputString[2];
 var thirdCommand = inputString[3];
 
-
+//switch statement for user commands
 	switch (commands) {
 		//runs twitter case
 		case 'my-tweets':
@@ -26,7 +32,7 @@ var thirdCommand = inputString[3];
 				twitterT();
 			 break;
 
-		//works
+		//works with spotify
 		case 'spotify-this-song': 
 			if (thirdCommand === undefined) {
 				console.log("Couldn't find what you were looking for, but check this song out. The Sign by Ace of Base:");
@@ -50,7 +56,7 @@ var thirdCommand = inputString[3];
 				findMovie();
 			}
 			
-			break;
+		break;
 
 		//calls out readfile function
 		case 'do-what-it-says':
@@ -61,7 +67,7 @@ var thirdCommand = inputString[3];
 
 	}
 
-	//=========================twitter function 
+	//=============================twitter function 
 
 	function twitterT(){
 			var params = {screen_name: 'MclovinLois', count: 20};
@@ -78,6 +84,8 @@ var thirdCommand = inputString[3];
 		function findMovie(){
 				var queryUrl = "http://www.omdbapi.com/?t=" + thirdCommand + "&y=&plot=short&apikey=40e9cece";
 					request(queryUrl, function(error, response, body){
+						//if statement that detects errors and if none
+						//exists it runs the following code
 						if (!error && response.statusCode === 200) {
 							console.log("Movie Title: " + JSON.parse(body).Title);
 							console.log("Year Released: " + JSON.parse(body).Year);
@@ -86,8 +94,8 @@ var thirdCommand = inputString[3];
 							console.log("Language: " + JSON.parse(body).Language);
 							console.log("Country: " + JSON.parse(body).Country);
 							console.log("Plot: " + JSON.parse(body).Plot);
-							}
-						  })
+							}//end of if statement
+						  })//end of request
 					}	
 	//===========================spotify function
 		function searchSong(){
@@ -96,7 +104,19 @@ var thirdCommand = inputString[3];
 							    return console.log('Error occurred: ' + err);
 							  }
 
-							  console.log(data.tracks.items.album.artists[0])
+							  //var that holds the items array
+							  var musicInfo = data.tracks.items[0];
+
+							  //artists name
+							  console.log(musicInfo.artists[0].name)
+							  //song name
+							  console.log(musicInfo.name)
+							  //album name
+							  console.log(musicInfo.album.name);
+							  //album link
+							  console.log(musicInfo.album.uri)
+							  	});
+							}
 						//loops through the data array
 						//for (var i = 0; i < data.tracks.items.length; i++) {
 
@@ -114,10 +134,8 @@ var thirdCommand = inputString[3];
 							//album name
 							//console.log(items.name)
 							//}
-						});
-					}
-
-	//===========================do what it says function
+					
+	//===========================Do what it says function
 		function readF() {
 				fs.readFile('random.txt', 'utf8', function (err, data){
 					if (err) {
@@ -130,8 +148,8 @@ var thirdCommand = inputString[3];
 					thirdCommand = splitData[1];
 
 					searchSong();
-					})
-				}
+					})//end of readFile function
+				} //end of readF
 
 
 //unnecessary stuff below
