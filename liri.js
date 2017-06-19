@@ -9,14 +9,13 @@ var fs = require('fs');
 
 //saves keys from keys.js 
 var T = new Twitter(
-	keys
+	keys.tKeys
 );
 
 //saves keys for Spotify
-var spotify = new Spotify({
-	id: '6f4efcaa0fe8401e9c74d0e85d58605d',
-	secret: '814916766bfe4e14b4309f6793bb4b11'
-});
+var spotify = new Spotify(
+	keys.sKeys
+	);
 
 //saves user input in variable
 var inputString = process.argv;
