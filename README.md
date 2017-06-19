@@ -5,7 +5,7 @@ Liri is an app that takes in commands and outputs results based on what users ty
 my-tweets
   - this will show my last 20 tweets
   
-spotify-this-song <song name here>
+spotify-this-song <'song name here'>
   - This will show the following information about the song in your terminal/bash window
       - Artists
       - song's name
